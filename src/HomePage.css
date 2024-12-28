@@ -1,0 +1,44 @@
+.navbar {
+  background-color: beige; /* Background color of the navbar */
+  height:40px;
+  width: 98vw;
+  margin-top: 2px;
+  margin-bottom: -9px;
+  font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+}
+
+.navbar ul {
+  list-style-type: none; /* Remove bullet points */
+  display: flex; /* Display links in a row */
+  justify-content: space-around; /* Spread out the items evenly */
+ 
+}
+
+.navbar li {
+  margin: 0 5px; /* Add some space between items */
+}
+
+.navbar a {
+  text-decoration: none; /* Remove underline */
+  color: #1e1e1e; /* White text color */
+  font-size: 20px; /* Font size */
+}
+
+.navbar a:hover {
+  color: #55b6ff;
+}
+
+h2 {
+  transition: transform 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+h2:hover {
+  transform: rotate(1deg);
+  color: #ffffff; 
+}
+p{
+  font-family: "Architects Daughter", serif;
+  font-weight: 570;
+  font-style: normal;
+}

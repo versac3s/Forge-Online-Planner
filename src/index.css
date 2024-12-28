@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+html, body {
+    background-color: beige;
+    margin: 0; /* Ensure no default margin */
+    height: 100%; /* Ensure full height for body */
+}
