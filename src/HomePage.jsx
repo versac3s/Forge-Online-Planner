@@ -27,7 +27,7 @@ export default function HomePage() {
       <nav className="navbar">
         <ul>
           <li>
-            <a href="/calendar">CALENDER</a>
+            <a href="/upcoming-events">CALENDER</a>
           </li>
           <li>
             <a href="/vision-board">VISION BOARD</a>
@@ -35,9 +35,7 @@ export default function HomePage() {
           <li>
             <a href="/projects">PROJECTS</a>
           </li>
-          <li>
-            <a href="/notes">NOTES</a>
-          </li>
+          
         </ul>
       </nav>
       <hr></hr>
