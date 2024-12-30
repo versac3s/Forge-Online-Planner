@@ -149,11 +149,10 @@ export default function HomePage() {
                 className="w-full h-60 object-cover rounded-t-xl"
               />
               <div className=" w-full">
-            
-                  <h2 className="text-lg font-semibold text-black mt-2 ml-2">
-                    <a href="/vision-board">Vision Board</a>
-                  </h2>
-                
+                <h2 className="text-lg font-semibold text-black mt-2 ml-2">
+                  <a href="/vision-board">Vision Board</a>
+                </h2>
+
                 <p className="text-sm text-gray-750 ml-2">
                   Where dreams take shape and aspirations get a visual upgrade.
                 </p>
@@ -168,7 +167,7 @@ export default function HomePage() {
               />
               <div className=" w-full">
                 <h2 className="text-lg font-semibold text-black  mt-2 ml-2 ">
-                  Projects
+                  <a href="/projects">Your Projects</a>
                 </h2>
                 <p className="text-sm text-gray-750 ml-2">
                   From brainstorm to breakthrough, this is where ideas become

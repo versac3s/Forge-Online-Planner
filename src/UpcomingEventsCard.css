@@ -1,0 +1,57 @@
+.calendar-container {
+  padding: 40px;
+  font-family: Arial, sans-serif;
+}
+
+.add-event-button {
+  background-color: #a3579e;
+  color: white;
+  padding: 10px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.add-event-button:hover {
+  background-color: #80c2b3;
+  transform: scale(1.1);
+}
+
+.edit-event-form {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #efb6eb6d;
+  border-radius: 5px;
+}
+
+.edit-event-form h3 {
+  margin-bottom: 10px;
+}
+
+.edit-event-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.edit-event-form input {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.save-event-button {
+  background-color: #a3579e;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 5px;
+}
+
+.save-event-button:hover {
+  background-color: #80c2b3;
+}

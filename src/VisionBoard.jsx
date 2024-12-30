@@ -10,7 +10,15 @@ function VisionBoard() {
   const [isDragging, setIsDragging] = useState(false);
   const [isResizing, setIsResizing] = useState(false);
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
+  const [editingText, setEditingText] = useState(null);
   const canvasRef = useRef(null);
+  const textInputRef = useRef(null);
+
+  useEffect(() => {
+    if (editingText && textInputRef.current) {
+      textInputRef.current.focus();
+    }
+  }, [editingText]);
 
   const addImage = (event) => {
     const file = event.target.files[0];
@@ -32,7 +40,7 @@ function VisionBoard() {
   const addText = () => {
     const newText = {
       type: "text",
-      content: "Double click to edit",
+      content: "Click to edit",
       id: Date.now(),
       style: {
         fontSize: 16,
@@ -43,6 +51,7 @@ function VisionBoard() {
       position: { x: 50, y: 50 },
     };
     setElements([...elements, newText]);
+    setEditingText(newText.id);
   };
 
   const handleBackgroundColor = (e) => {
@@ -60,11 +69,11 @@ function VisionBoard() {
   };
 
   const handleTextChange = (e, elementId) => {
-    const text = e.target.textContent;
+    const newText = e.target.value;
     setElements(prev =>
       prev.map(el =>
         el.id === elementId
-          ? { ...el, content: text }
+          ? { ...el, content: newText }
           : el
       )
     );
@@ -142,54 +151,21 @@ function VisionBoard() {
     };
   }, [isDragging, isResizing, selectedElementId, startPos]);
 
-  const downloadImage = async () => {
-    try {
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      const mainCanvas = canvasRef.current;
-      
-      // Set canvas dimensions
-      canvas.width = mainCanvas.offsetWidth;
-      canvas.height = mainCanvas.offsetHeight;
-      
-      // Draw background
-      ctx.fillStyle = canvasStyle.backgroundColor;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      
-      // Draw each element
-      for (const element of elements) {
-        if (element.type === 'image') {
-          const img = new Image();
-          img.src = element.src;
-          await new Promise((resolve) => {
-            img.onload = resolve;
-          });
-          ctx.drawImage(
-            img,
-            element.position.x,
-            element.position.y,
-            element.style.width,
-            element.style.height
-          );
-        } else if (element.type === 'text') {
-          ctx.font = `${element.style.fontSize}px Arial`;
-          ctx.fillStyle = element.style.color;
-          ctx.fillText(
-            element.content,
-            element.position.x,
-            element.position.y + element.style.fontSize
-          );
-        }
-      }
-      
-      // Create download link
+  const downloadImage = () => {
+    const svg = new XMLSerializer().serializeToString(canvasRef.current);
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    const img = new Image();
+    img.src = 'data:image/svg+xml;base64,' + btoa(svg);
+    img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
       const link = document.createElement('a');
       link.download = 'vision-board.png';
       link.href = canvas.toDataURL('image/png');
       link.click();
-    } catch (error) {
-      console.error('Error downloading image:', error);
-    }
+    };
   };
 
   return (
@@ -278,6 +254,7 @@ function VisionBoard() {
                   cursor: isDragging ? "grabbing" : "grab",
                 }}
                 onMouseDown={(e) => handleMouseDown(e, element, "drag")}
+                onDoubleClick={() => element.type === "text" && setEditingText(element.id)}
               >
                 {element.type === "image" ? (
                   <>
@@ -297,17 +274,32 @@ function VisionBoard() {
                   </>
                 ) : (
                   <div className="relative w-full h-full group">
-                    <textarea
-                      value={element.content}
-                      onChange={(e) => handleTextChange(e, element.id)}
-                      className="w-full h-full p-2 resize-none bg-transparent focus:outline-none"
-                      style={{
-                        fontSize: `${element.style.fontSize}px`,
-                        color: element.style.color,
-                        border: 'none',
-                        overflow: 'hidden'
-                      }}
-                    />
+                    {editingText === element.id ? (
+                      <input
+                        ref={textInputRef}
+                        type="text"
+                        value={element.content}
+                        onChange={(e) => handleTextChange(e, element.id)}
+                        onBlur={() => setEditingText(null)}
+                        onKeyDown={(e) => e.key === 'Enter' && setEditingText(null)}
+                        className="w-full h-full p-2 focus:outline-none bg-transparent"
+                        style={{
+                          fontSize: `${element.style.fontSize}px`,
+                          color: element.style.color,
+                          border: 'none',
+                        }}
+                      />
+                    ) : (
+                      <div
+                        className="w-full h-full p-2"
+                        style={{
+                          fontSize: `${element.style.fontSize}px`,
+                          color: element.style.color,
+                        }}
+                      >
+                        {element.content}
+                      </div>
+                    )}
                     <div
                       className="absolute bottom-0 right-0 w-3 h-3 bg-blue-500 rounded-sm cursor-se-resize"
                       onMouseDown={(e) => {
