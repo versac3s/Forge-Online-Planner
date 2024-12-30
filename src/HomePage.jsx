@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./HomePage.css";
+import { Link } from "react-router-dom";
 import plannerImage from "./assets/Planner.png";
 import visionImage from "./assets/Vision.png";
 import projectImage from "./assets/Projects.png";
@@ -35,7 +36,6 @@ export default function HomePage() {
           <li>
             <a href="/projects">PROJECTS</a>
           </li>
-          
         </ul>
       </nav>
       <hr></hr>
@@ -78,8 +78,8 @@ export default function HomePage() {
                 className="w-full h-60 object-cover rounded-t-xl"
               />
               <div className=" w-full">
-                <h2 className="text-lg font-semibold text-black mt-2 ml-2 ">
-                  <a href="/upcoming-events">Upcoming Events & Calendar</a>
+                <h2 className="text-lg font-semibold text-black mt-2 ml-2">
+                  <Link to="/upcoming-events">Upcoming Events & Calendar</Link>
                 </h2>
                 <p className="text-sm text-gray-750 ml-2">
                   Your personal time machine, letting you peek (and prepare for)
@@ -148,7 +148,7 @@ export default function HomePage() {
               />
               <div className=" w-full">
                 <h2 className="text-lg font-semibold text-black mt-2 ml-2">
-                  <a href="/vision-board">Vision Board</a>
+                  <Link to="/vision-board">Vision Board</Link>
                 </h2>
 
                 <p className="text-sm text-gray-750 ml-2">
@@ -164,8 +164,8 @@ export default function HomePage() {
                 className="w-full h-60 object-cover rounded-t-xl"
               />
               <div className=" w-full">
-                <h2 className="text-lg font-semibold text-black  mt-2 ml-2 ">
-                  <a href="/projects">Your Projects</a>
+                <h2 className="text-lg font-semibold text-black mt-2 ml-2 ">
+                  <Link to="/projects">Your Projects</Link>
                 </h2>
                 <p className="text-sm text-gray-750 ml-2">
                   From brainstorm to breakthrough, this is where ideas become
